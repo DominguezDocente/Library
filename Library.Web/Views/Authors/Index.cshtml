@@ -6,29 +6,65 @@
 
 <h1>Autores</h1>
 
-<div class="row">
-    <div class="">
-        <table class="table-responsive">    
-            <thead>
-                <tr>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                </tr>
-            </thead>
+<a class="btn btn-info" asp-action="Create">Nuevo Autor</a>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th></th>
+        </tr>
+    </thead>
 
-            <tbody>
-                @foreach(var item in Model)
-                {
-                    <tr>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                    </tr>
-                }
-            </tbody>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" style="display:contents">
+                        <button class="btn btn-danger btnDelete">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
 
-        </table>
-    </div>
-</div>
+</table>
+
+@section Scripts {
+    <script>
+            
+        $(document).ready(function() {
+
+            $('.btnDelete').click(function(event) {
+
+                event.preventDefault();
+
+                Swal.fire({
+                    title: "¿Desea eliminar el Autor?",
+                    text: "No prodrá revertirlo",
+                    icon: "question",
+                    showCancelButton: true,
+                }).then((result) => {
+                        
+                    if (result.isConfirmed) {
+                            
+                        const form = $(this).closest('form');
+
+                        form.submit();
+                    }
+
+                });
+            
+            });
+
+        });
+
+    </script>
+}
 
 
 
