@@ -15,7 +15,7 @@ namespace Library.Web.Data.Entities
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string LastName { get; set; }
 
-        //public string? Gender { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
 
     }
 }
